@@ -1,9 +1,4 @@
 # Stealth Webcam Access - Ethical Hacking Lab
-
-**Student Name:** Zainab Noor  
-**Roll Number:** F23-0545  
-**Course:** Ethical Hacking Lab  
-
 ##  Project Overview
 This project is a security proof-of-concept (PoC) designed to demonstrate how social engineering can be used to trick users into granting hardware permissions. The application disguises a live camera stream behind a fake "File Unlock" interface to show how easily users can be compromised.
 
@@ -15,3 +10,5 @@ This project is a security proof-of-concept (PoC) designed to demonstrate how so
 
 ##  Security Disclaimer
 This project is for **educational purposes only**. It highlights the importance of browser permission safety and the risks of clicking "Allow" on untrusted websites. [cite_start]It serves as a lesson that a simple permission click can give malicious sites control over hardware sensors[cite: 5].
+
+Author: Zainab Noor
