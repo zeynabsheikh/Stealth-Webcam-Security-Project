@@ -1,9 +1,9 @@
 # Stealth Webcam Access - Ethical Hacking Lab
 
-## 📌 Project Overview
+##  Project Overview
 This project is a security proof-of-concept (PoC) designed to demonstrate how social engineering can be used to trick users into granting hardware permissions. The application disguises a live camera stream behind a fake "File Unlock" interface to show how easily users can be compromised.
 
-## 🛠️ Features
+##  Features
 
 * **Social Engineering UI:** A professional-looking landing page designed with student credentials to establish user trust.
 
@@ -13,7 +13,7 @@ This project is a security proof-of-concept (PoC) designed to demonstrate how so
 
 * **Phase 2 (Deployment):** Successfully hosted on Netlify to simulate a real-world web attack scenario via a live URL.
 
-## ⚠️ Security Disclaimer
+##  Security Disclaimer
 This project is for **educational purposes only**. It highlights the importance of browser permission safety and the risks of clicking "Allow" on untrusted websites. It serves as a lesson that a simple permission click can give malicious sites control over hardware sensors.
 
 Author: Zainab Noor
