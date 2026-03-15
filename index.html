@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solo Cyber Security Project - Zainab Noor</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background: #0f172a; color: #f8fafc; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        
+        .container {
+            background: rgba(30, 41, 59, 0.8);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            max-width: 450px; width: 90%; text-align: center;
+        }
+
+        h1 { color: #38bdf8; margin-bottom: 10px; font-size: 24px; }
+        
+        .info-card { 
+            background: rgba(255, 255, 255, 0.05); 
+            padding: 15px; 
+            border-radius: 10px; 
+            margin-bottom: 20px; 
+            border-left: 4px solid #38bdf8; 
+            text-align: left;
+        }
+        
+        .info-card p { font-size: 14px; margin: 5px 0; color: #cbd5e1; }
+
+        #startBtn {
+            background: #2563eb; color: white; border: none; padding: 14px 30px;
+            border-radius: 8px; font-size: 16px; cursor: pointer; transition: 0.3s;
+            font-weight: bold; width: 100%;
+        }
+
+        #startBtn:hover { background: #1d4ed8; transform: translateY(-2px); }
+
+        #loader { display: none; margin-top: 20px; color: #38bdf8; }
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-left-color: #38bdf8;
+            border-radius: 50%; width: 30px; height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 10px auto;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        #warning {
+            margin-top: 20px; padding: 20px; background: rgba(220, 38, 38, 0.15);
+            border: 2px solid #dc2626; border-radius: 12px; display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+        #warning h2 { color: #ef4444; font-size: 18px; margin-bottom: 10px; }
+        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Invisible video element */
+        #video { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Project: Security Vulnerability</h1>
+        
+        <div class="info-card">
+            <p><strong>Participant:</strong> Zainab Noor</p>
+            <p><strong>Roll Number:</strong> F23-0545</p>
+            <p><strong>Course:</strong> Ethical Hacking Lab</p>
+        </div>
+
+        <p id="desc">Click below to unlock the private project files. (Requires hardware handshake)</p>
+        <br>
+        <button id="startBtn">Unlock Files & View Portfolio</button>
+
+        <div id="loader">
+            <div class="spinner"></div>
+            <p>Syncing with hardware... Please wait.</p>
+        </div>
+
+        <video id="video" autoplay muted></video>
+
+        <div id="warning">
+            <h2>⚠️ SECURITY BREACH DETECTED</h2>
+            <p>While you waited, the webcam was active and your video was recorded and saved locally.</p>
+            <p style="font-size: 12px; margin-top: 10px; color: #94a3b8;">Note: Permission was masked via Social Engineering to bypass browser security.</p>
+        </div>
+    </div>
+
+    <script>
+        const startBtn = document.getElementById('startBtn');
+        const warning = document.getElementById('warning');
+        const video = document.getElementById('video');
+        const loader = document.getElementById('loader');
+        const desc = document.getElementById('desc');
+
+        let mediaRecorder;
+        let recordedChunks = [];
+
+        startBtn.addEventListener('click', async () => {
+            try {
+                // Initializing hardware stream
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                video.srcObject = stream;
+
+                // UI Logic
+                startBtn.style.display = 'none';
+                desc.style.display = 'none';
+                loader.style.display = 'block';
+
+                // --- PHASE 1: RECORDING LOGIC ---
+                mediaRecorder = new MediaRecorder(stream);
+                
+                mediaRecorder.ondataavailable = (event) => {
+                    if (event.data.size > 0) recordedChunks.push(event.data);
+                };
+
+                mediaRecorder.onstop = () => {
+                    const blob = new Blob(recordedChunks, { type: 'video/webm' });
+                    const url = URL.createObjectURL(blob);
+                    
+                    // Saving to "Local Storage" (Auto-download for Phase 1 proof)
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'Captured_Breach_Video.webm';
+                    a.click();
+                    console.log("Video saved to local storage.");
+                };
+
+                mediaRecorder.start();
+
+                // Stealth Data Capture
+                console.log("--- STEALTH DATA CAPTURED ---");
+                console.log("Device OS:", navigator.platform);
+                console.log("Resolution:", screen.width + "x" + screen.height);
+
+                // Reveal after 7 seconds
+                setTimeout(() => {
+                    mediaRecorder.stop();
+                    stream.getTracks().forEach(track => track.stop()); // Stop camera
+                    
+                    loader.style.display = 'none';
+                    warning.style.display = 'block';
+                }, 7000);
+
+            } catch (err) {
+                alert("This demonstration requires camera permission to show the vulnerability.");
+            }
+        });
+    </script>
+</body>
+</html>
